@@ -19,3 +19,40 @@ Thumbs.db
 test_results/
 models/
 *.json
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.env
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+results/*.json
+results/*.html
+!results/.gitkeep
+*.log
+
+# Model cache
+.cache/
+models/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
