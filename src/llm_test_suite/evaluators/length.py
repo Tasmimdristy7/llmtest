@@ -45,8 +45,8 @@ class LengthEvaluator:
     def _get_message(self, word_count, passed):
         """Generate a helpful message."""
         if passed:
-            return f" Good length: {word_count} words"
+            return f"✅ Good length: {word_count} words"
         elif word_count < self.min_words:
-            return f" Too short: {word_count} words (minimum: {self.min_words})"
+            return f"❌ Too short: {word_count} words (minimum: {self.min_words})"
         else:
-            return f" Too long: {word_count} words (maximum: {self.max_words})"
+            return f"❌ Too long: {word_count} words (maximum: {self.max_words})"

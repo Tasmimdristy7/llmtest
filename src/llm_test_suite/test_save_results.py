@@ -1,8 +1,7 @@
-# test_save_results.py
 """Test evaluator with results saving."""
 
-from llm_test_suite.evaluators.length import LengthEvaluator
 from llm_test_suite.utils.results_manager import ResultsManager
+from llm_test_suite.evaluators.length import LengthEvaluator
 from transformers import pipeline
 
 # Create evaluator and results manager
@@ -15,25 +14,15 @@ model = pipeline("text-generation", model="gpt2")
 
 # Test cases
 test_cases = [
-    {
-        "name": "greeting",
-        "prompt": "Write a short greeting:",
-    },
-    {
-        "name": "question", 
-        "prompt": "Ask a simple question:",
-    },
-    {
-        "name": "instruction",
-        "prompt": "Give a simple instruction:",
-    }
+    {"name": "greeting", "prompt": "Write a short greeting:"},
+    {"name": "question", "prompt": "Ask a simple question:"},
+    {"name": "instruction", "prompt": "Give a simple instruction:"}
 ]
 
 print("\n" + "="*50)
 print("Running Tests and Saving Results")
 print("="*50)
 
-# Store all results
 all_results = []
 
 for test in test_cases:
@@ -51,7 +40,7 @@ for test in test_cases:
     evaluation = evaluator.evaluate(generated_text)
     print(f"Result: {evaluation['message']}")
     
-    # Add extra info to evaluation
+    # Add extra info
     evaluation['test_name'] = test['name']
     evaluation['prompt'] = test['prompt']
     evaluation['response'] = generated_text
@@ -59,13 +48,10 @@ for test in test_cases:
     # Save individual result
     results_manager.save_result(f"test_{test['name']}", evaluation)
     
-    # Add to all results
     all_results.append(evaluation)
 
-# Save all results together
 print("\n" + "-"*50)
 results_manager.save_multiple_results("length_evaluation", all_results)
 
-# Show summary
 passed = sum(1 for r in all_results if r['passed'])
 print(f"\nSummary: {passed}/{len(all_results)} tests passed")
