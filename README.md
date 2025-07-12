@@ -83,22 +83,25 @@ bash# Install required packages
 pip install -r requirements.txt
 
 # This installs:
-# - transformers (for AI models)
-# - torch (for calculations)
-# - sentence-transformers (for semantic testing)
-# - numpy, scikit-learn (for math operations)
+ - transformers (for AI models)
+- torch (for calculations)
+ - sentence-transformers (for semantic testing)
+ - numpy, scikit-learn (for math operations)
+
 Step 4: Install Project in Development Mode
+
 bash# This lets Python find your code
 pip install -e .
+
 Step 5: Verify Installation
 bash# Run the basic test
 python basic_test.py
 
 # You should see:
-# Model: gpt2
-# Loading model...
-# Response: Hello, my name is John...
-# Basic setup is working!
+ Model: gpt2
+ Loading model...
+Response: Hello, my name is John...
+Basic setup is working!
 Step 6: Run Your First Real Test
 bash# Test with results saving
 python examples/test_save_results.py
@@ -106,7 +109,9 @@ python examples/test_save_results.py
 # Check results folder
 ls results/
 # You'll see JSON files with test results
+
 Project Structure Explained
+
 llm-test-suite/
 ├── llmtest.py                 # ORIGINAL: Starting file with all code in one place
 ├── basic_test.py              # FIRST TEST: Simple test I wrote to verify setup
