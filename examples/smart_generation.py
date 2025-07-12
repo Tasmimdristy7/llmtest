@@ -1,6 +1,3 @@
-# examples/smart_generation.py
-"""Example of better text generation control."""
-
 from transformers import pipeline, set_seed
 
 # Set seed for reproducibility
