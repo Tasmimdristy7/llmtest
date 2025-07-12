@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-"""
-LLMTest Enhanced - Improved testing framework for Large Language Models
-"""
+
 from transformers import pipeline, set_seed
 import time
 from typing import Dict, Any, List, Optional
@@ -10,7 +7,7 @@ from datetime import datetime
 
 
 class LLMTester:
-    """Enhanced class for testing LLMs"""
+    
     
     def __init__(self, model_name: str = "gpt2", device: str = "cpu"):
         """Initialize with a model from Hugging Face."""
@@ -46,9 +43,7 @@ class LLMTester:
         temperature: float = 0.7,
         timeout: int = 15,  # Increased timeout
     ) -> Dict[str, Any]:
-        """
-        Tests a single prompt for text completion.
-        """
+       
         print(f"\nTesting prompt: '{prompt}'")
         
         # Measure time

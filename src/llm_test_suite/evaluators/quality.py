@@ -1,21 +1,10 @@
 class QualityEvaluator:
-    """Checks basic quality aspects of responses."""
     
     def __init__(self):
-        """Initialize quality evaluator."""
         pass
     
     def evaluate(self, response):
-        """
-        Check response quality.
-        
-        Args:
-            response: Text to evaluate
-            
-        Returns:
-            Dictionary with quality metrics
-        """
-        # Check various quality aspects
+    
         checks = {
             'has_content': len(response.strip()) > 0,
             'ends_properly': response.strip()[-1] in '.!?:' if response.strip() else False,
@@ -25,19 +14,16 @@ class QualityEvaluator:
             'no_special_chars': not any(c in response for c in ['@', '#', '$', '%', '^', '&', '*'])
         }
         
-        # Count passed checks
         passed_checks = sum(checks.values())
         total_checks = len(checks)
         
-        # Overall pass if most checks pass
-        all_passed = passed_checks >= 4  # Pass if at least 4 out of 6 checks pass
+        all_passed = passed_checks >= 4  
         
-        # Create message
         failed_checks = [k.replace('_', ' ') for k, v in checks.items() if not v]
         if all_passed:
-            message = f"✅ Good quality ({passed_checks}/{total_checks} checks passed)"
+            message = f" Good quality ({passed_checks}/{total_checks} checks passed)"
         else:
-            message = f"❌ Quality issues: {', '.join(failed_checks)}"
+            message = f" Quality issues: {', '.join(failed_checks)}"
         
         return {
             'passed': all_passed,

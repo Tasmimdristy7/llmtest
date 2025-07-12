@@ -1,15 +1,10 @@
-# test_save_results.py
-"""Test evaluator with results saving - FIXED VERSION."""
-
 from llm_test_suite.evaluators.length import LengthEvaluator
 from llm_test_suite.utils.results_manager import ResultsManager
 from transformers import pipeline
 
-# Create evaluator with more reasonable limits
 evaluator = LengthEvaluator(min_words=3, max_words=30)  # Increased max to 30
 results_manager = ResultsManager("results")
 
-# Load model
 print("Loading model...")
 model = pipeline("text-generation", model="gpt2")
 
@@ -60,17 +55,12 @@ for test in test_cases:
     evaluation['test_name'] = test['name']
     evaluation['prompt'] = test['prompt']
     evaluation['response'] = generated_text
-    
-    # Save individual result
     results_manager.save_result(f"test_{test['name']}", evaluation)
     
-    # Add to all results
     all_results.append(evaluation)
 
-# Save all results together
 print("\n" + "-"*50)
 results_manager.save_multiple_results("length_evaluation", all_results)
 
-# Show summary
 passed = sum(1 for r in all_results if r['passed'])
 print(f"\nSummary: {passed}/{len(all_results)} tests passed")

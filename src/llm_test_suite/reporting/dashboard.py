@@ -1,5 +1,3 @@
-"""Simple HTML dashboard generator for test results."""
-
 import json
 import os
 from datetime import datetime
@@ -7,19 +5,15 @@ from pathlib import Path
 
 
 class DashboardGenerator:
-    """Generates HTML dashboard from test results."""
     
     def __init__(self, results_dir="results"):
-        """Initialize dashboard generator."""
         self.results_dir = results_dir
         
     def generate_dashboard(self):
-        """Generate HTML dashboard from all JSON files in results directory."""
         # Find all JSON files
         json_files = list(Path(self.results_dir).glob("*.json"))
         
         if not json_files:
-            print("No result files found!")
             return None
         
         # Load all results

@@ -1,6 +1,5 @@
 
 class Config:
-    """Basic configuration class."""
     
     def __init__(self):
         # Default settings
