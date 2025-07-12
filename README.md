@@ -112,44 +112,48 @@ ls results/
 
 Project Structure Explained
 
+```text
 llm-test-suite/
-├── llmtest.py                 # ORIGINAL: Starting file with all code in one place
-├── basic_test.py              # FIRST TEST: Simple test I wrote to verify setup
+├── llmtest.py                  # ORIGINAL: Monolithic test file (starting point)
+├── basic_test.py               #  First simple test to verify setup
 │
-├── src/llm_test_suite/        # NEW: Organized modular code
-│   ├── __init__.py            # Makes this a Python package
-│   ├── config.py              # Settings management (model names, paths)
-│   ├── models.py              # Data structures (TestResult, Metric classes)
-│   ├── exceptions.py          # Custom error types
-│   │
-│   ├── evaluators/            # Different ways to test responses
-│   │   ├── length.py          # Counts words, checks if good length
-│   │   ├── quality.py         # Checks punctuation, repetition, etc.
-│   │   ├── semantic.py        # Checks if meaning matches expected
-│   │   └── sentence.py        # Counts sentences instead of words
-│   │
-│   ├── utils/                 # Helper tools
-│   │   └── results_manager.py # Saves results with timestamps
-│   │
-│   ├── runners/               # Orchestrates tests
-│   │   └── simple_runner.py   # Runs multiple evaluators together
-│   │
-│   ├── reporting/             # Creates reports
-│   │   └── dashboard.py       # Generates HTML dashboard
-│   │
-│   └── comparisons/           # Model comparison tools
-│       └── model_comparator.py # Tests multiple models
+├── src/llm_test_suite/         # New modular package
+│   ├── __init__.py             # Marks as Python package
+│   ├── config.py               # Global config: model names, paths
+│   ├── models.py               # Data classes: TestResult, Metric, etc.
+│   ├── exceptions.py           # Custom error types
 │
-├── examples/                  # Example scripts showing usage
-│   ├── test_save_results.py   # How to save results
-│   ├── test_semantic_similarity.py # Meaning comparison
-│   ├── compare_models.py      # Model comparison
-│   └── generate_dashboard.py  # Create visual report
+│   ├── evaluators/             # Evaluate model outputs
+│   │   ├── length.py           # Check word/char length
+│   │   ├── quality.py          # Check punctuation, repetition, format
+│   │   ├── semantic.py         # Semantic similarity checks
+│   │   └── sentence.py         # Sentence counting
 │
-├── results/                   # Test outputs (JSON files, HTML)
-├── requirements.txt          # Python packages needed
-├── setup.py                  # Makes project installable
-└── README.md                 # This file
+│   ├── utils/                  # Utility helpers
+│   │   └── results_manager.py  # Save/load results with timestamps
+│
+│   ├── runners/                #  Test orchestrators
+│   │   └── simple_runner.py    # Combine evaluators to run a suite
+│
+│   ├── reporting/              # Reporting tools
+│   │   └── dashboard.py        # Generate HTML dashboards
+│
+│   └── comparisons/            #  Compare multiple models
+│       └── model_comparator.py # Cross-model testing
+│
+├── examples/                   # Example scripts
+│   ├── test_save_results.py    # Run test & save JSON results
+│   ├── test_semantic_similarity.py # Check semantic similarity
+│   ├── compare_models.py       # Compare several models
+│   └── generate_dashboard.py   # Build visual HTML report
+│
+├── results/                    # Saved test outputs (JSON, HTML)
+├── requirements.txt            # Dependency list
+├── setup.py                    # Installable Python package
+└── README.md                   # Project overview & docs
+
+
+
 How Everything Works
 The Testing Flow
 1. Load AI Model (GPT-2)
