@@ -1,109 +1,133 @@
 # LLM Test Suite - AI Testing Framework
 
-This is a comprehensive testing framework for Large Language Models (LLMs). It provides automated evaluation of AI model outputs across multiple dimensions:
+A comprehensive testing framework for Large Language Models (LLMs) that automates evaluation across:
 
-Response quality and coherence
-Semantic accuracy and meaning preservation
-Performance metrics and benchmarking
-Cross-model comparison capabilities
+- **Response quality and coherence**  
+- **Semantic accuracy and meaning preservation**  
+- **Performance metrics and benchmarking**  
+- **Cross-model comparison capabilities**  
 
-The framework is designed to solve the real problem of evaluating LLM outputs systematically rather than manually checking each response.
+Designed to address the challenge of systematically evaluating LLM outputs instead of manual checks.
 
+---
 
-When working with LLMs, there's no standard way to:
+## Why This Framework?
 
-Systematically evaluate if responses are good or bad
-Compare different models objectively
-Track model performance over time
-Detect when models give incorrect or inappropriate answers
+Working with LLMs often lacks a standard way to:
 
-I created this framework to:
+- Evaluate responses as good or bad systematically  
+- Objectively compare different models  
+- Track model performance over time  
+- Detect incorrect or inappropriate answers  
 
-Automate LLM evaluation with multiple criteria
-Provide consistent, reproducible testing
-Enable data-driven model selection
-Create a reusable testing infrastructure for AI applications
+This framework helps you:
 
-Project Evolution
-Starting Point
+- Automate multi-criteria LLM evaluation  
+- Ensure consistent, reproducible testing  
+- Enable data-driven model selection  
+- Build reusable infrastructure for AI apps  
 
-Given: llmtest.py - a monolithic testing script
-Challenge: Transform it into a modular, extensible framework
-Goal: Create a professional testing suite for LLM evaluation
+---
 
-Development Phases
-Phase 1: Analysis and Understanding
+## Project Evolution
 
-Analyzed the original llmtest.py structure
-Identified core testing patterns
-Recognized need for modularity
+### Starting Point
+- Single, monolithic script: `llmtest.py`  
+- Goal: Modular, extensible, professional testing suite  
 
-Phase 2: Architecture Design
+### Development Phases
 
-Designed modular architecture
-Separated concerns (evaluators, runners, reporting)
-Created extensible interfaces
+**Phase 1: Analysis & Understanding**  
+- Analyzed original code  
+- Identified core testing patterns  
+- Recognized need for modular design  
 
-Phase 3: Implementation
+**Phase 2: Architecture Design**  
+- Designed modular components  
+- Separated evaluators, runners, reporting  
+- Created extensible interfaces  
 
-Evaluators System: Built pluggable evaluation modules
-Results Management: Created persistent storage system
-Reporting Engine: Developed visual dashboards
-Semantic Analysis: Integrated NLP-based evaluation
-Comparison Tools: Built multi-model testing capabilities
+**Phase 3: Implementation**  
+- Built pluggable evaluation modules  
+- Developed persistent results management  
+- Created visual reporting dashboards  
+- Added NLP-based semantic analysis  
+- Built multi-model comparison tools  
 
-Complete Setup Guide
-Prerequisites
+---
 
-Python 3.8 or newer
-4GB free disk space (for AI models)
-Internet connection (to download models)
-Terminal/Command Prompt basic knowledge
+## Complete Setup Guide
 
-Step 1: Get the Code
-bash# Clone from GitHub (replace YOUR_USERNAME)
+### Prerequisites
+- Python 3.8+  
+- ≥4 GB free disk space (for AI models)  
+- Internet connection (for downloading models)  
+- Basic command line knowledge  
+
+---
+
+### Step 1: Get the Code
+
+```bash
+# Clone repository (replace YOUR_USERNAME)
 git clone https://github.com/YOUR_USERNAME/llm-test-suite.git
 cd llm-test-suite
 
-# Or download and extract ZIP file
+# Or download and unzip the ZIP archive
 Step 2: Set Up Python Environment
-bash# Create virtual environment (isolated Python)
+bash
+Copy
+Edit
+# Create isolated Python virtual environment
 python -m venv venv
 
-# Activate it
+# Activate environment:
 # On Mac/Linux:
 source venv/bin/activate
 
 # On Windows:
 venv\Scripts\activate
 
-# You should see (venv) in your terminal
+# Your terminal prompt should now start with (venv)
 Step 3: Install Dependencies
-bash# Install required packages
+bash
+Copy
+Edit
 pip install -r requirements.txt
-
-# This installs:
- - transformers (for AI models)
-- torch (for calculations)
- - sentence-transformers (for semantic testing)
- - numpy, scikit-learn (for math operations)
-
+```
+# Installs:
+```text
+ - transformers (AI models)
+ - torch (calculations)
+ - sentence-transformers (semantic testing)
+ - numpy, scikit-learn (math operations)
+```
 Step 4: Install Project in Development Mode
+```bash
 
-bash# This lets Python find your code
 pip install -e .
-
+# Allows Python to recognize your local project code
 Step 5: Verify Installation
-bash# Run the basic test
+bash
+
 python basic_test.py
 
+# Expected output:
+# Model: gpt2
+# Loading model...
+# Response: Hello, my name is John...
+# Basic setup is working!
 # You should see:
  Model: gpt2
  Loading model...
 Response: Hello, my name is John...
 Basic setup is working!
+
+```
+
 Step 6: Run Your First Real Test
-bash# Test with results saving
+```bash
+# Test with results saving
 python examples/test_save_results.py
 
 # Check results folder
@@ -112,7 +136,7 @@ ls results/
 
 Project Structure Explained
 
-```text
+
 llm-test-suite/
 ├── llmtest.py                  # ORIGINAL: Monolithic test file (starting point)
 ├── basic_test.py               #  First simple test to verify setup
@@ -152,10 +176,12 @@ llm-test-suite/
 ├── setup.py                    # Installable Python package
 └── README.md                   # Project overview & docs
 
-
+```
 
 How Everything Works
+
 The Testing Flow
+```text
 1. Load AI Model (GPT-2)
       ↓
 2. Give it a prompt ("Write a greeting")
@@ -171,8 +197,10 @@ The Testing Flow
       ↓
 6. Generate HTML dashboard
 Core Concepts
+```
 Evaluators
 Each evaluator checks one aspect:
+```bash
 python# Length Evaluator
 evaluator = LengthEvaluator(min_words=5, max_words=20)
 result = evaluator.evaluate("This is my response")
@@ -189,36 +217,49 @@ result = evaluator.evaluate(
     response="Paris is the capital",
     expected="The capital is Paris"
 )
-# Returns: {"similarity_score": 0.95, "passed": True}
+Returns: {"similarity_score": 0.95, "passed": True}
+
 Results Manager
 Saves everything with timestamps:
 pythonmanager = ResultsManager("results")
 manager.save_result("test_name", evaluation_data)
-# Creates: results/test_name_20240115_143022.json
+
+Creates: results/test_name_20240115_143022.json
 Test Runner
 Combines multiple evaluators:
+
 pythonrunner = SimpleTestRunner([length_eval, quality_eval])
 results = runner.run_test(prompt, response)
 # Runs all evaluators and combines results
+```
+
 Problems I Faced and Solutions
 Problem 1: "ModuleNotFoundError: No module named 'llm_test_suite'"
 Cause: Python couldn't find my code
 What I tried first: Adding sys.path.insert(0, 'src')
+
 Better solution:
+```bash
 bashpip install -e .
+
+```
 Why this works: Installs your package in "editable" mode
+
 Problem 2: "TypeError: Object of type bool_ is not JSON serializable"
 Cause: NumPy types can't be saved to JSON
 Where: In semantic.py when saving results
 Solution:
+```bash
 python# Convert NumPy types to Python types
 'passed': bool(passed),
 'score': float(similarity_score)
+
+```
 Problem 3: GPT-2 Always Generates Too Much Text
 Cause: Default settings generate 50+ tokens
 Symptoms: All length tests failed
 Solutions:
-
+```text 
 Reduce max_new_tokens from 50 to 15
 Adjust evaluator thresholds (max_words: 30 instead of 20)
 Use prompts that encourage short answers
@@ -241,11 +282,12 @@ Solutions:
 Use completion prompts instead of questions
 Lower similarity threshold (0.6 instead of 0.8)
 Use better models for factual tasks
-
+```
 Problem 6: Browser Can't Open Dashboard
 Cause: file:// path issues
 Error: "This site can't be reached"
 Solution: Use absolute path:
+```bash
 pythonimport os
 abs_path = os.path.abspath("results/dashboard.html")
 webbrowser.open(f"file://{abs_path}")
@@ -256,11 +298,14 @@ Solution: Create .vscode/settings.json:
 json{
     "python.analysis.extraPaths": ["./src"]
 }
+
+```
 Usage Examples
 Basic Length Test
+```bash
 pythonfrom llm_test_suite.evaluators.length import LengthEvaluator
 from transformers import pipeline
-
+```
 # Load model
 model = pipeline("text-generation", model="gpt2")
 
@@ -283,6 +328,7 @@ python examples/compare_models.py
 python examples/generate_dashboard.py
 
 # Open dashboard in browser
+```bash
 open results/dashboard.html  # Mac
 start results/dashboard.html # Windows
 Test Results and Outputs
@@ -332,14 +378,8 @@ Winner: distilgpt2 (faster)
 Overall:
 - gpt2: Better quality, slower
 - distilgpt2: Lower quality, 40% faster
-What I Learned
-Technical Skills Developed
 
-AI/LLM Testing: Understanding evaluation metrics and methodologies
-Software Architecture: Modular design and separation of concerns
-NLP Techniques: Semantic similarity and text analysis
-Framework Development: Building reusable, extensible systems
-Data Visualization: Creating meaningful reports and dashboards
+```
 
 Key Achievements
 
